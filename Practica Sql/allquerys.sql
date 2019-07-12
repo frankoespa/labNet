@@ -1,10 +1,18 @@
 --EMPLOYEES
+SELECT *
+FROM test.employees
 
 --DEPARTMENTS
+SELECT *
+FROM test.departments
 
 --JOBS
+SELECT *
+FROM test.jobs
 
 --LOCATIONS
+SELECT *
+FROM test.locations
 
 --1
 SELECT *
@@ -46,3 +54,8 @@ WHERE emp.salary < 2000
 SELECT *
 FROM test.employees emp
 WHERE emp.salary BETWEEN 1800 AND 3000
+
+--10
+SELECT *
+FROM test.employees emp
+WHERE emp.department_id IN(10,30,31)
