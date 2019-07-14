@@ -233,9 +233,9 @@ ORDER BY annual_salary DESC
 ## 21)
 
 ```sql
-SELECT emp.first_name, emp.last_name, dep.department_description
-FROM test.employees emp
-LEFT JOIN test.departments dep ON emp.department_id = dep.id
+SELECT *
+FROM test.employees emp , test.departments dep
+WHERE emp.department_id = dep.id
 ```
 
 ![](img/21.png)
@@ -270,3 +270,126 @@ LEFT JOIN test.locations loc ON dep.location_id = loc.id
 ```
 
 ![](img/24.png)
+
+## 25)
+
+```sql
+SELECT *
+FROM test.employees emp
+JOIN test.departments dep ON emp.department_id = dep.id
+```
+
+> **Aclaración:** Se obtiene el mismo resultado que el ejercicio 21. También se puede utilizar el INNER JOIN.
+> ![](img/25.png)
+
+## 26)
+
+```sql
+SELECT *
+FROM test.employees emp
+LEFT JOIN test.departments dep ON emp.department_id = dep.id
+```
+
+![](img/26.png)
+
+## 27)
+
+```sql
+SELECT *
+FROM test.departments dep
+LEFT JOIN test.employees emp ON dep.id = emp.department_id
+```
+
+> **Aclaración:** Se puede utilizar también el RIGHT JOIN invirtiendo las tablas.
+> ![](img/27.png)
+
+## 28)
+
+```sql
+SELECT man.id id_man, (man.first_name + ' ' + man.last_name) full_name_man, emp.id id_emp, (emp.first_name + ' ' + emp.last_name) full_name_emp
+FROM test.employees man
+INNER JOIN test.employees emp ON man.id = emp.manager_id
+```
+
+![](img/28.png)
+
+## 29)
+
+```sql
+SELECT MAX(emp.salary) max_salary
+FROM test.employees emp
+```
+
+![](img/29.png)
+
+## 30)
+
+```sql
+SELECT MAX(emp.salary) max_salary, MIN(emp.salary) min_salary, AVG(emp.salary) promedy_salary, SUM(emp.salary) total_salary
+FROM test.employees emp
+```
+
+![](img/30.png)
+
+## 31)
+
+> WRONG !!!
+
+```sql
+SELECT MAX(emp.hire_date) max_hire_date, MIN(emp.hire_date) min_hire_date, AVG(emp.hire_date) promedy_hire_date, SUM(emp.hire_date) total_hire_date
+FROM test.employees emp
+```
+
+![](img/31error.png)
+![](img/31error2.png)
+
+> GOOD !!!
+
+```sql
+SELECT MAX(emp.hire_date) max_hire_date, MIN(emp.hire_date) min_hire_date, AVG(emp.salary) promedy_salary, SUM(emp.salary) total_salary
+FROM test.employees emp
+```
+
+![](img/31.png)
+
+## 32)
+
+```sql
+SELECT COUNT(*) total_employees
+FROM test.employees emp
+```
+
+![](img/32.png)
+
+## 33)
+
+```sql
+SELECT COUNT(*) total_employees_dep_10
+FROM test.employees emp
+WHERE emp.department_id = 10
+```
+
+![](img/33.png)
+
+## 34)
+
+```sql
+SELECT dep.id id_dep, dep.department_name, COUNT(*) total_employees
+FROM test.departments dep
+INNER JOIN test.employees emp ON dep.id = emp.department_id
+GROUP BY dep.id, dep.department_name
+```
+
+![](img/34.png)
+
+## 35)
+
+```sql
+SELECT dep.id id_dep, dep.department_name, job.id id_job, job.job_name, COUNT(*) total_employees
+FROM test.departments dep
+INNER JOIN test.employees emp ON dep.id = emp.department_id
+INNER JOIN test.jobs job ON emp.job_id = job.id
+GROUP BY dep.id, dep.department_name,job.id, job.job_name
+```
+
+![](img/35.png)

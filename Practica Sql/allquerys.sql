@@ -120,9 +120,9 @@ FROM test.employees emp
 ORDER BY annual_salary DESC
 
 --21
-SELECT emp.first_name, emp.last_name, dep.department_description
-FROM test.employees emp
-LEFT JOIN test.departments dep ON emp.department_id = dep.id
+SELECT *
+FROM test.employees emp , test.departments dep
+WHERE emp.department_id = dep.id
 
 --22
 SELECT emp.last_name, dep.department_name
@@ -139,4 +139,58 @@ SELECT emp.id id_emp, emp.last_name, dep.id id_dep, dep.department_name, dep.dep
 FROM test.employees emp
 LEFT JOIN test.departments dep ON emp.department_id = dep.id
 LEFT JOIN test.locations loc ON dep.location_id = loc.id
+
+--25
+SELECT *
+FROM test.employees emp
+JOIN test.departments dep ON emp.department_id = dep.id
+
+--26
+SELECT *
+FROM test.employees emp
+LEFT JOIN test.departments dep ON emp.department_id = dep.id
+
+--27
+SELECT *
+FROM test.departments dep
+LEFT JOIN test.employees emp ON dep.id = emp.department_id
+
+--28
+SELECT man.id id_man, (man.first_name + ' ' + man.last_name) full_name_man, emp.id id_emp, (emp.first_name + ' ' + emp.last_name) full_name_emp
+FROM test.employees man
+INNER JOIN test.employees emp ON man.id = emp.manager_id
+
+--29
+SELECT MAX(emp.salary) max_salary
+FROM test.employees emp
+
+--30
+SELECT MAX(emp.salary) max_salary, MIN(emp.salary) min_salary, AVG(emp.salary) promedy_salary, SUM(emp.salary) total_salary
+FROM test.employees emp
+
+--31
+SELECT MAX(emp.hire_date) max_hire_date, MIN(emp.hire_date) min_hire_date, AVG(emp.salary) promedy_salary, SUM(emp.salary) total_salary
+FROM test.employees emp
+
+--32
+SELECT COUNT(*) total_employees
+FROM test.employees emp
+
+--33
+SELECT COUNT(*) total_employees_dep_10
+FROM test.employees emp
+WHERE emp.department_id = 10
+
+--34
+SELECT dep.id id_dep, dep.department_name, COUNT(*) total_employees
+FROM test.departments dep
+INNER JOIN test.employees emp ON dep.id = emp.department_id
+GROUP BY dep.id, dep.department_name
+
+--35
+SELECT dep.id id_dep, dep.department_name, job.id id_job, job.job_name, COUNT(*) total_employees
+FROM test.departments dep
+INNER JOIN test.employees emp ON dep.id = emp.department_id
+INNER JOIN test.jobs job ON emp.job_id = job.id
+GROUP BY dep.id, dep.department_name,job.id, job.job_name
 
