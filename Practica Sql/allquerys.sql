@@ -194,3 +194,15 @@ INNER JOIN test.employees emp ON dep.id = emp.department_id
 INNER JOIN test.jobs job ON emp.job_id = job.id
 GROUP BY dep.id, dep.department_name,job.id, job.job_name
 
+--36
+SELECT emp.department_id, dep.department_name, AVG(emp.salary) promedy_salary
+FROM test.employees emp
+INNER JOIN test.departments dep ON emp.department_id = dep.id
+GROUP BY emp.department_id, dep.department_name
+
+--37
+SELECT emp.department_id, dep.department_name, AVG(emp.salary) promedy_salary
+FROM test.employees emp
+INNER JOIN test.departments dep ON emp.department_id = dep.id
+GROUP BY emp.department_id, dep.department_name
+HAVING AVG(emp.salary) < 1200
